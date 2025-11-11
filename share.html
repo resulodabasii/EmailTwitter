@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görseli Paylaş</title>
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bu harika görseli sizlerle paylaşıyorum! 🎉">
+    <meta name="twitter:description" content="Görseli görmek için tıklayın">
+    <meta name="twitter:image" content="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Bu harika görseli sizlerle paylaşıyorum! 🎉">
+    <meta property="og:description" content="Görseli görmek için tıklayın">
+    <meta property="og:image" content="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg">
+    <meta property="og:type" content="website">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .image-container {
+            margin: 30px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            background: #000000;
+            color: white;
+            padding: 18px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .share-btn:hover {
+            background: #1DA1F2;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(29,161,242,0.4);
+        }
+        
+        .info {
+            background: #E8F5FD;
+            border-left: 4px solid #1DA1F2;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            text-align: left;
+            color: #0C4A6E;
+        }
+        
+        .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .share-btn {
+                padding: 15px 35px;
+                font-size: 18px;
+            }
+        }
+    </style>
+    
+    <script>
+        // URL parametresinden görsel al
+        function getImageUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('img') || 'https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg';
+        }
+        
+        // Sayfa yüklendiğinde
+        window.addEventListener('DOMContentLoaded', function() {
+            const imageUrl = getImageUrl();
+            
+            // Görseli güncelle
+            document.getElementById('shareImage').src = imageUrl;
+            
+            // Meta tag'leri güncelle
+            document.querySelector('meta[name="twitter:image"]').content = imageUrl;
+            document.querySelector('meta[property="og:image"]').content = imageUrl;
+            
+            // Share butonunu güncelle
+            const shareText = encodeURIComponent('Bu harika görseli sizlerle paylaşıyorum! 🎉');
+            const shareUrl = encodeURIComponent(window.location.href);
+            document.getElementById('shareBtn').href = 
+                `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">🎨</span>Görseli 𝕏'te Paylaş</h1>
+        
+        <div class="image-container">
+            <img id="shareImage" src="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg" alt="Paylaşılacak Görsel">
+        </div>
+        
+        <a id="shareBtn" 
+           href="https://twitter.com/intent/tweet?text=Bu%20harika%20g%C3%B6rseli%20sizlerle%20payla%C5%9F%C4%B1yorum!%20%F0%9F%8E%89&url=https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg" 
+           class="share-btn" 
+           target="_blank">
+            𝕏 X'te Paylaş
+        </a>
+        
+        <div class="info">
+            <strong>💡 Nasıl Çalışır?</strong><br>
+            Butona tıkladığınızda X açılacak ve görsel otomatik olarak önizleme kartı olarak görünecek. Tweet'i yazıp paylaşmanız yeterli!
+        </div>
+    </div>
+</body>
+</html>
