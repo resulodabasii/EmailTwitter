@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Görseli Paylaş</title>
+    <title>Sosyal Medyada Paylaş</title>
     
-    <!-- Twitter Card Meta Tags -->
+    <!-- Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bu harika görseli sizlerle paylaşıyorum! 🎉">
-    <meta name="twitter:description" content="Görseli görmek için tıklayın">
     <meta name="twitter:image" content="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Bu harika görseli sizlerle paylaşıyorum! 🎉">
-    <meta property="og:description" content="Görseli görmek için tıklayın">
     <meta property="og:image" content="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg">
-    <meta property="og:type" content="website">
     
     <style>
         * {
@@ -38,7 +31,7 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             padding: 40px;
             text-align: center;
@@ -46,8 +39,14 @@
         
         h1 {
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
         }
         
         .image-container {
@@ -55,110 +54,272 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
         }
         
-        img {
+        #shareImage {
             max-width: 100%;
             height: auto;
             display: block;
         }
         
-        .share-btn {
-            display: inline-block;
-            background: #000000;
+        .download-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
             color: white;
-            padding: 18px 50px;
-            text-decoration: none;
-            border-radius: 50px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .main-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
             font-size: 20px;
             font-weight: bold;
-            margin-top: 25px;
+            cursor: pointer;
+            margin: 20px 0;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+        
+        .social-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
-        .share-btn:hover {
-            background: #1DA1F2;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(29,161,242,0.4);
-        }
+        .instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        .twitter { background: #000000; }
+        .facebook { background: #4267B2; }
+        .whatsapp { background: #25D366; }
+        .linkedin { background: #0077B5; }
+        .tiktok { background: #000000; }
         
-        .info {
-            background: #E8F5FD;
-            border-left: 4px solid #1DA1F2;
-            padding: 15px;
+        .info-box {
+            background: #F0F9FF;
+            border-left: 4px solid #0EA5E9;
+            padding: 20px;
             margin-top: 30px;
-            border-radius: 5px;
+            border-radius: 10px;
             text-align: left;
-            color: #0C4A6E;
         }
         
-        .emoji {
-            font-size: 24px;
-            margin-right: 10px;
+        .info-box h3 {
+            color: #0C4A6E;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .steps {
+            color: #0C4A6E;
+            line-height: 1.8;
+        }
+        
+        .steps strong {
+            display: block;
+            margin-top: 10px;
+            color: #075985;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10B981;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
         }
         
         @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 22px;
-            }
-            
-            .share-btn {
-                padding: 15px 35px;
-                font-size: 18px;
-            }
+            .container { padding: 25px; }
+            h1 { font-size: 22px; }
+            .main-btn { font-size: 18px; padding: 18px; }
+            .social-buttons { grid-template-columns: 1fr; }
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Sosyal Medyada Paylaş</h1>
+        <p class="subtitle">Görseli indir ve istediğin platformda paylaş!</p>
+        
+        <div class="image-container">
+            <div class="download-overlay">👆 Görsele uzun bas / sağ tıkla</div>
+            <img id="shareImage" src="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg" alt="Paylaşılacak Görsel">
+        </div>
+        
+        <button class="main-btn" onclick="downloadImage()">
+            📥 Görseli İndir
+        </button>
+        
+        <div class="social-buttons">
+            <a href="https://www.instagram.com/" target="_blank" class="social-btn instagram">
+                📸 Instagram
+            </a>
+            
+            <a href="https://twitter.com/intent/tweet?text=Bu%20harika%20g%C3%B6rseli%20payla%C5%9F%C4%B1yorum!" target="_blank" class="social-btn twitter">
+                𝕏 Twitter
+            </a>
+            
+            <a href="https://www.facebook.com/" target="_blank" class="social-btn facebook">
+                📘 Facebook
+            </a>
+            
+            <a href="https://www.tiktok.com/upload" target="_blank" class="social-btn tiktok">
+                🎵 TikTok
+            </a>
+            
+            <a href="https://www.linkedin.com/" target="_blank" class="social-btn linkedin">
+                💼 LinkedIn
+            </a>
+            
+            <a href="https://wa.me/?text=Bu%20harika%20g%C3%B6rseli%20payla%C5%9F%C4%B1yorum!" target="_blank" class="social-btn whatsapp">
+                💬 WhatsApp
+            </a>
+        </div>
+        
+        <div class="info-box">
+            <h3>🎯 Nasıl Paylaşılır?</h3>
+            <div class="steps">
+                <strong>📥 Adım 1: Görseli İndir</strong>
+                • "Görseli İndir" butonuna tıkla<br>
+                • Veya görsele sağ tıkla → "Resmi Kaydet"<br>
+                • Mobilde görsele uzun bas → "Resmi İndir"
+                
+                <strong>📱 Adım 2: Platformu Seç</strong>
+                • Paylaşmak istediğin sosyal medya butonuna tıkla
+                
+                <strong>🎉 Adım 3: Paylaş!</strong>
+                • Platform açıldığında + veya yükle butonuna tıkla<br>
+                • İndirdiğin görseli seç<br>
+                • Açıklama yaz ve paylaş!
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast"></div>
     
     <script>
-        // URL parametresinden görsel al
+        // URL'den görsel al
         function getImageUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('img') || 'https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg';
         }
         
-        // Sayfa yüklendiğinde
+        // Görseli yükle
         window.addEventListener('DOMContentLoaded', function() {
             const imageUrl = getImageUrl();
-            
-            // Görseli güncelle
             document.getElementById('shareImage').src = imageUrl;
             
             // Meta tag'leri güncelle
             document.querySelector('meta[name="twitter:image"]').content = imageUrl;
             document.querySelector('meta[property="og:image"]').content = imageUrl;
-            
-            // Share butonunu güncelle
-            const shareText = encodeURIComponent('Bu harika görseli sizlerle paylaşıyorum! 🎉');
-            const shareUrl = encodeURIComponent(window.location.href);
-            document.getElementById('shareBtn').href = 
-                `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`;
         });
+        
+        // Görseli indir
+        async function downloadImage() {
+            const imageUrl = getImageUrl();
+            
+            try {
+                const response = await fetch(imageUrl);
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'paylasilacak-gorsel.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showToast('✅ Görsel indirildi! Şimdi istediğin platformda paylaşabilirsin.');
+            } catch (error) {
+                showToast('⚠️ Görsele sağ tıklayıp "Resmi Kaydet" seçeneğini kullanabilirsin.');
+            }
+        }
+        
+        // Toast bildirimi
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+        }
+        
+        // Mobil paylaşım (varsa)
+        if (navigator.share) {
+            const shareBtn = document.createElement('button');
+            shareBtn.className = 'main-btn';
+            shareBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+            shareBtn.innerHTML = '🚀 Hızlı Paylaş (Mobil)';
+            shareBtn.onclick = async function() {
+                try {
+                    const imageUrl = getImageUrl();
+                    const response = await fetch(imageUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], 'share.jpg', { type: 'image/jpeg' });
+                    
+                    await navigator.share({
+                        files: [file],
+                        title: 'Görseli Paylaş',
+                        text: 'Bu harika görseli sizlerle paylaşıyorum!'
+                    });
+                } catch (error) {
+                    console.log('Paylaşım iptal edildi');
+                }
+            };
+            
+            // İndir butonundan sonra ekle
+            document.querySelector('.main-btn').after(shareBtn);
+        }
     </script>
-</head>
-<body>
-    <div class="container">
-        <h1><span class="emoji">🎨</span>Görseli 𝕏'te Paylaş</h1>
-        
-        <div class="image-container">
-            <img id="shareImage" src="https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg" alt="Paylaşılacak Görsel">
-        </div>
-        
-        <a id="shareBtn" 
-           href="https://twitter.com/intent/tweet?text=Bu%20harika%20g%C3%B6rseli%20sizlerle%20payla%C5%9F%C4%B1yorum!%20%F0%9F%8E%89&url=https://cdn.fonzip.com/public/tegv/img/email/1-1748502299324.jpg" 
-           class="share-btn" 
-           target="_blank">
-            𝕏 X'te Paylaş
-        </a>
-        
-        <div class="info">
-            <strong>💡 Nasıl Çalışır?</strong><br>
-            Butona tıkladığınızda X açılacak ve görsel otomatik olarak önizleme kartı olarak görünecek. Tweet'i yazıp paylaşmanız yeterli!
-        </div>
-    </div>
 </body>
 </html>
